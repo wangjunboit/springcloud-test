@@ -1,0 +1,28 @@
+server:
+  port: 9000
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: wjb-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service1
+          uri: https://blog.csdn.net
+          predicates:
+            - Path=/csdn
+        - id: swagger-service
+          uri: lb://swagger-service
+          predicates:
+            - Path=/api/swagger/**
+          filters:
+            - StripPrefix=2
+
+
