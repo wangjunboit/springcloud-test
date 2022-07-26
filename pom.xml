@@ -18,7 +18,6 @@
         <module>eureka-server</module>
         <module>wjb-gateway</module>
         <module>wjb-common</module>
-        <module>swagger-service</module>
         <module>wjb-modules</module>
     </modules>
     <properties>

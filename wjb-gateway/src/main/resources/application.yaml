@@ -18,10 +18,10 @@ spring:
           uri: https://blog.csdn.net
           predicates:
             - Path=/csdn
-        - id: swagger-service
-          uri: lb://swagger-service
+        - id: system-service
+          uri: lb://system-service
           predicates:
-            - Path=/api/swagger/**
+            - Path=/api/system/**
           filters:
             - StripPrefix=2
 
