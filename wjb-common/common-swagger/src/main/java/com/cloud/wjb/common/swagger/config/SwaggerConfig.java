@@ -1,4 +1,4 @@
-package com.cloud.wjb.config;
+package com.cloud.wjb.common.swagger.config;
 
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;

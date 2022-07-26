@@ -6,6 +6,7 @@
     <modules>
         <module>common-core</module>
         <module>common-entity</module>
+        <module>common-swagger</module>
     </modules>
     <parent>
         <groupId>com.cloud.wjb</groupId>

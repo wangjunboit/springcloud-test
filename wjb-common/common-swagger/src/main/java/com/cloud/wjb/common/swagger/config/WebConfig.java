@@ -1,4 +1,4 @@
-package com.cloud.wjb.config;
+package com.cloud.wjb.common.swagger.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
