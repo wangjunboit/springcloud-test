@@ -1,7 +1,6 @@
-package com.cloud.wjb.controller;
+package com.cloud.wjb.common.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -38,7 +37,6 @@ public class R<T> implements Serializable {
     private String msg;
 
     @ApiModelProperty(value = "请求api")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String requestUri;
 
 
