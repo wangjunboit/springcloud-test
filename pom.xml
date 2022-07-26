@@ -19,6 +19,7 @@
         <module>wjb-gateway</module>
         <module>wjb-common</module>
         <module>swagger-service</module>
+        <module>wjb-modules</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
