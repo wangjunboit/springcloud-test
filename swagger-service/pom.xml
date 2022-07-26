@@ -39,8 +39,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.cloud.wjb</groupId>
+            <artifactId>common-entity</artifactId>
         </dependency>
     </dependencies>
 
