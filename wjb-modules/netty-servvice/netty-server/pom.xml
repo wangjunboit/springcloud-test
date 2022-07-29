@@ -29,6 +29,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.cloud.wjb</groupId>
             <artifactId>common-entity</artifactId>
@@ -37,10 +43,9 @@
             <groupId>com.cloud.wjb</groupId>
             <artifactId>common-swagger</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <groupId>com.cloud.wjb</groupId>
+            <artifactId>system-api</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,27 +1,32 @@
-package com.cloud.wjb.system.controller;
+package com.cloud.wjb.netty.server.netty;
 
 import com.cloud.wjb.common.entity.R;
-import io.swagger.annotations.Api;
+import com.cloud.wjb.feign.SystermFeign;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * 〈一句话功能简述〉<br>
  * 〈〉
  *
  * @author wjb
- * @create 2022/7/26
+ * @create 2022/7/29
  * @since 1.0.0
  */
-@Api(tags = "swagger接口管理")
 @RestController
-public class SwaggerController {
+@RequestMapping("/feign")
+public class FeignTestController {
+    @Resource
+    private SystermFeign systermFeign;
 
     @GetMapping("/test")
     @ApiOperation("测试接口")
     public R test(@RequestParam("id") Integer id) {
-        return R.ok();
+        return systermFeign.test(id);
     }
 }
