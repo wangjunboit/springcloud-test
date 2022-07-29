@@ -1,4 +1,4 @@
-package com.cloud.wjb.netty.server.netty;
+package com.cloud.wjb.netty.server.controller;
 
 import com.cloud.wjb.common.entity.R;
 import com.cloud.wjb.feign.SystermFeign;
