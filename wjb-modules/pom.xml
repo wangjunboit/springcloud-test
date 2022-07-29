@@ -15,6 +15,7 @@
         <module>system-service</module>
         <module>netty-servvice</module>
         <module>netty-servvice/netty-server</module>
+        <module>design-service</module>
     </modules>
 
     <properties>
