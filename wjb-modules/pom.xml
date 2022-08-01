@@ -13,9 +13,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>system-service</module>
-        <module>netty-servvice</module>
-        <module>netty-servvice/netty-server</module>
+        <module>netty-service</module>
         <module>design-service</module>
+        <module>docker-java-service</module>
     </modules>
 
     <properties>
