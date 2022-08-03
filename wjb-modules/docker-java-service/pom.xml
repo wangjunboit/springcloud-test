@@ -39,6 +39,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.imwyh</groupId>
+            <artifactId>harbor-java-client</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.github.docker-java</groupId>
             <artifactId>docker-java-transport-httpclient5</artifactId>
             <version>3.2.13</version>
