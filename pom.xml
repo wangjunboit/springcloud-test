@@ -24,9 +24,12 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+        <project.version>0.0.1-SNAPSHOT</project.version>
         <!-- swagger annotations版本 -->
         <swagger-annotations.version>1.5.20</swagger-annotations.version>
-        <knife4j-version>3.0.3</knife4j-version>
+        <knife4j.version>3.0.3</knife4j.version>
+        <jedis.version>3.4.0</jedis.version>
+        <hutool.version>5.8.3</hutool.version>
     </properties>
     <dependencies>
         <dependency>
@@ -36,7 +39,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.7.15</version>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 
@@ -52,17 +55,22 @@
             <dependency>
                 <groupId>com.cloud.wjb</groupId>
                 <artifactId>wjb-common</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.cloud.wjb</groupId>
                 <artifactId>common-entity</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.cloud.wjb</groupId>
                 <artifactId>common-core</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cloud.wjb</groupId>
+                <artifactId>common-redis</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.swagger</groupId>
@@ -72,12 +80,12 @@
             <dependency>
                 <groupId>com.cloud.wjb</groupId>
                 <artifactId>common-swagger</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.cloud.wjb</groupId>
                 <artifactId>system-api</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--   knife4j    -->
@@ -85,7 +93,14 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <!--在引用时请在maven中央仓库搜索最新版本号-->
-                <version>${knife4j-version}</version>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- redis 客户端 -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -39,5 +39,9 @@
             <groupId>com.cloud.wjb</groupId>
             <artifactId>common-swagger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cloud.wjb</groupId>
+            <artifactId>common-redis</artifactId>
+        </dependency>
     </dependencies>
 </project>
