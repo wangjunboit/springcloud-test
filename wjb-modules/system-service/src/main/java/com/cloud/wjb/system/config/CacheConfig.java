@@ -1,4 +1,4 @@
-package com.cloud.wjb.common.redis.comfig;
+package com.cloud.wjb.system.config;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -51,6 +51,15 @@ public class CacheConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(JedisConnectionFactory factory) {
         //以锁写入的方式创建RedisCacheWriter对象
         RedisCacheWriter writer = RedisCacheWriter.lockingRedisCacheWriter(factory);
+        /*
+        设置CacheManager的Value序列化方式为JdkSerializationRedisSerializer,
+        但其实RedisCacheConfiguration默认就是使用
+        StringRedisSerializer序列化key，
+        JdkSerializationRedisSerializer序列化value,
+        所以以下注释代码就是默认实现，没必要写，直接注释掉
+         */
+        // RedisSerializationContext.SerializationPair pair = RedisSerializationContext.SerializationPair.fromSerializer(new JdkSerializationRedisSerializer(this.getClass().getClassLoader()));
+        // RedisCacheConfiguration redis = RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
         //创建默认缓存配置对象
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         RedisCacheManager cacheManager = new RedisCacheManager(writer, config);

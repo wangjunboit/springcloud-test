@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * 〈一句话功能简述〉<br>
  * 〈〉
@@ -20,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "swagger接口管理")
 @RestController
 public class TestController {
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
     @GetMapping("/test")
     @ApiOperation("测试接口")
-    public R test(@RequestParam("id") Integer id) {
+    public R test(@RequestParam("id") String id) {
         redisTemplate.opsForValue().set("ID", id);
         return R.ok(id);
     }
