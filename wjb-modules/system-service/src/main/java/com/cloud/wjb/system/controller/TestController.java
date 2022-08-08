@@ -3,7 +3,8 @@ package com.cloud.wjb.system.controller;
 import com.cloud.wjb.common.entity.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ public class TestController {
 
     @GetMapping("/test")
     @ApiOperation("测试接口")
+    @Cacheable(cacheNames = "test", key = "#id")
     public R test(@RequestParam("id") String id) {
         redisTemplate.opsForValue().set("ID", id);
         return R.ok(id);

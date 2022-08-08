@@ -1,4 +1,4 @@
-package com.cloud.wjb.system.config;
+package com.cloud.wjb.common.redis.config;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -9,9 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.lang.reflect.Method;
 
@@ -44,6 +48,7 @@ public class CacheConfig extends CachingConfigurerSupport {
         };
     }
 
+
     /**
      * 缓存配置管理器
      */
@@ -51,20 +56,25 @@ public class CacheConfig extends CachingConfigurerSupport {
     public CacheManager cacheManager(JedisConnectionFactory factory) {
         //以锁写入的方式创建RedisCacheWriter对象
         RedisCacheWriter writer = RedisCacheWriter.lockingRedisCacheWriter(factory);
-        /*
-        设置CacheManager的Value序列化方式为JdkSerializationRedisSerializer,
-        但其实RedisCacheConfiguration默认就是使用
-        StringRedisSerializer序列化key，
-        JdkSerializationRedisSerializer序列化value,
-        所以以下注释代码就是默认实现，没必要写，直接注释掉
-         */
-        // RedisSerializationContext.SerializationPair pair = RedisSerializationContext.SerializationPair.fromSerializer(new JdkSerializationRedisSerializer(this.getClass().getClassLoader()));
-        // RedisCacheConfiguration redis = RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
         //创建默认缓存配置对象
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         RedisCacheManager cacheManager = new RedisCacheManager(writer, config);
         return cacheManager;
     }
+
+//    @Bean
+//    public CacheManager cacheManager(RedisConnectionFactory factory) {
+//        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+//        JsonRedisSerializer jackson2JsonRedisSerializer = new JsonRedisSerializer(Object.class);
+//        // 配置序列化
+//        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+//        RedisCacheConfiguration redisCacheConfiguration = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+//                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
+//        RedisCacheManager cacheManager = RedisCacheManager.builder(factory)
+//                .cacheDefaults(redisCacheConfiguration)
+//                .build();
+//        return cacheManager;
+//    }
 
     /**
      * 获取缓存操作助手对象
@@ -76,15 +86,7 @@ public class CacheConfig extends CachingConfigurerSupport {
         //创建Redis缓存操作助手RedisTemplate对象
         StringRedisTemplate template = new StringRedisTemplate();
         template.setConnectionFactory(factory);
-        //以下代码为将RedisTemplate的Value序列化方式由JdkSerializationRedisSerializer更换为Jackson2JsonRedisSerializer
-        //此种序列化方式结果清晰、容易阅读、存储字节少、速度快，所以推荐更换
-//        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-//        ObjectMapper om = new ObjectMapper();
-//        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-//        jackson2JsonRedisSerializer.setObjectMapper(om);
-//        template.setValueSerializer(jackson2JsonRedisSerializer);
         template.afterPropertiesSet();
-        return template;//StringRedisTemplate是RedisTempLate<String, String>的子类
+        return template;
     }
 }
