@@ -1,5 +1,6 @@
 package com.cloud.wjb.system.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.cloud.wjb.common.entity.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

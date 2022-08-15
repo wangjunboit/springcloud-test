@@ -18,7 +18,11 @@ spring:
         max-active: 8
         # 等待可用连接的最大时间，负数为不限制
         max-wait: 1ms
-
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
 
 eureka:
   client:

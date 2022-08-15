@@ -1,9 +1,10 @@
 package com.cloud.wjb.docker.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
-import com.github.dockerjava.api.command.ListImagesCmd;
-import com.github.dockerjava.api.command.PushImageCmd;
+import com.github.dockerjava.api.command.*;
+import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.PullResponseItem;
 import com.github.dockerjava.api.model.PushResponseItem;
 import com.github.dockerjava.api.model.SearchItem;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -147,7 +150,7 @@ public class DockerController {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
                 .withDockerHost(DOCKER_URL)
                 .withDockerTlsVerify(false)
@@ -159,14 +162,56 @@ public class DockerController {
         DockerClient dockerClient = DockerClientBuilder.getInstance(config).build();
 
 
-        String imageName = "app";
-        String imageTag = "v1";
+        InspectContainerResponse nacos = dockerClient.inspectContainerCmd("nacos").exec();
 
-        ImmutableSet<String> tag = ImmutableSet.of(imageName + ":" + imageTag);
-        String imageId = dockerClient.buildImageCmd(new File("E:\\docker\\dockerfile"))
-                .withTags(tag)
-                .start()
-                .awaitImageId();
-        System.out.println(imageId);
+
+//        LogContainerTestCallback loggingCallback = new LogContainerTestCallback(true);
+//
+//        // this essentially test the since=0 case
+//        dockerClient.logContainerCmd("nacos")
+//                .withStdErr(true)
+//                .withStdOut(true)
+//                .withFollowStream(true)
+//                .withTailAll()
+//                .exec(loggingCallback);
+//
+//        loggingCallback.awaitCompletion(3, TimeUnit.SECONDS);
+
+        System.out.println(JSON.toJSONString(nacos));
+    }
+}
+
+/**
+ * @author Kanstantsin Shautsou
+ */
+class LogContainerTestCallback extends ResultCallback.Adapter<Frame> {
+    protected final StringBuffer log = new StringBuffer();
+
+    List<Frame> collectedFrames = new ArrayList<>();
+
+    boolean collectFrames = false;
+
+    public LogContainerTestCallback() {
+        this(false);
+    }
+
+    public LogContainerTestCallback(boolean collectFrames) {
+        this.collectFrames = collectFrames;
+    }
+
+    @Override
+    public void onNext(Frame frame) {
+        if (collectFrames) collectedFrames.add(frame);
+        log.append(new String(frame.getPayload()));
+    }
+
+    @Override
+    public String toString() {
+        return log.toString();
+    }
+
+
+    public List<Frame> getCollectedFrames() {
+        return collectedFrames;
     }
 }
