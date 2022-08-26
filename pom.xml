@@ -31,6 +31,7 @@
         <knife4j.version>3.0.3</knife4j.version>
         <jedis.version>3.4.0</jedis.version>
         <hutool.version>5.8.3</hutool.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
     </properties>
     <dependencies>
         <dependency>
@@ -79,6 +80,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.cloud.wjb</groupId>
+                <artifactId>common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger-annotations.version}</version>
@@ -107,6 +113,11 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>

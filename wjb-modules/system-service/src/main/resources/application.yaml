@@ -4,6 +4,18 @@ server:
 spring:
   application:
     name: system-service
+  datasource:
+    url: jdbc:mariadb://42.194.173.207:31234/dispatch_business?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=CTT&characterEncoding=UTF8&useSSL=false&allowMultiQueries=true&nullCatalogMeansCurrent=true
+    username: root
+    password: wjb2022
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 20000
+      minimum-idle: 5
+      maximum-pool-size: 12
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      auto-commit: true
   redis:
     host: 10.10.90.127
     port: 6379
