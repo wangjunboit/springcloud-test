@@ -1,16 +1,10 @@
 package com.cloud.wjb.docker.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
-import com.spotify.docker.client.LogStream;
-import com.spotify.docker.client.ProgressHandler;
-import com.spotify.docker.client.exceptions.DockerCertificateException;
-import com.spotify.docker.client.exceptions.DockerException;
-import com.spotify.docker.client.messages.*;
-
-import java.nio.file.Paths;
-import java.util.concurrent.atomic.AtomicReference;
+import com.spotify.docker.client.messages.ContainerInfo;
+import com.spotify.docker.client.messages.RegistryAuth;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -23,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class SpotifyController {
     public static void main(String[] args) throws Exception {
         // Create a client based on DOCKER_HOST and DOCKER_CERT_PATH env vars
-        final DockerClient docker = DefaultDockerClient.fromEnv().uri("http://172.18.43.114:2375").build();
+        final DockerClient docker = DefaultDockerClient.fromEnv().uri("http://10.10.71.2:2375").build();
 
         // Pull an image
         //docker.pull("busybox:latest");
@@ -57,12 +51,23 @@ public class SpotifyController {
 
 
         //docker.pull("wjbit-docker.pkg.coding.net/boot_test/docker/java-spring-app:20220801",registryAuth);
+        //List<Container> containers = docker.listContainers(DockerClient.ListContainersParam.allContainers());
 
-        final String logs;
-        try (LogStream stream = docker.logs("nacos", DockerClient.LogsParam.stdout(), DockerClient.LogsParam.stderr())) {
-            logs = stream.readFully();
-        }
-        System.out.println(logs);
+        ContainerInfo containerInfo = docker.inspectContainer("cec6ad600e0330be833af83da450dc4b9b550501620d6c0da268c269862ac00d");
+        System.out.println("123---->" + JSON.toJSONString(containerInfo));
+
+//        HostConfig hostConfig = HostConfig.builder()
+//                .nanoCpus(2*1000*1000*1000L)
+//                .restartPolicy(HostConfig.RestartPolicy.unlessStopped())
+//                .build();
+//        ContainerUpdate containerUpdate = docker.updateContainer("cec6ad600e0330be833af83da450dc4b9b550501620d6c0da268c269862ac00d", hostConfig);
+//        System.out.println(JSON.toJSONString(containerUpdate));
+
+//        final String logs;
+//        try (LogStream stream = docker.logs("nacos", DockerClient.LogsParam.stdout(), DockerClient.LogsParam.stderr())) {
+//            logs = stream.readFully();
+//        }
+//        System.out.println(logs);
         docker.close();
     }
 }

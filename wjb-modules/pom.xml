@@ -16,6 +16,7 @@
         <module>netty-service</module>
         <module>design-service</module>
         <module>docker-java-service</module>
+        <module>snmp-service</module>
     </modules>
 
     <properties>
