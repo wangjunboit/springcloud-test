@@ -13,7 +13,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ReentrantLockExample extends Thread {
     volatile static ReentrantLock lock = new ReentrantLock();
-
     @Override
     public void run() {
         try {
