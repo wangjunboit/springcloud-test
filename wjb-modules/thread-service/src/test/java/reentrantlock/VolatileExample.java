@@ -34,7 +34,6 @@ public class VolatileExample extends Thread {
 //        new Thread(new VolatileExample(),"线程").start();
 //        Thread.sleep(1000);
 //        stop = true;
-
         //原子性测试
         for (int i = 0; i < 5; i++) {
             new Thread(new VolatileExample(), "线程" + i).start();
