@@ -2,6 +2,7 @@ package com.cloud.wjb.system.mapper;
 
 import com.cloud.wjb.system.entity.MachineRoomEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author fuqiang
  * @since 2022-08-19
  */
+@Mapper
 public interface MachineRoomMapper extends BaseMapper<MachineRoomEntity> {
 
 }

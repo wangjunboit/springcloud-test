@@ -23,16 +23,12 @@ public class SnmpTest {
         try {
             //设定CommunityTarget
             CommunityTarget myTarget = new CommunityTarget();
-            //定义远程主机的地址
-            //Address deviceAdd = GenericAddress.parse("udp:192.168.1.233/161");
             //定义本机的地址
-            Address localAdd = GenericAddress.parse("udp:localhost/161");
-            //设定远程主机的地址
-            //myTarget.setAddress(deviceAdd);
+            Address localAdd = GenericAddress.parse("udp:172.18.1.2/161");
             //设定本地主机的地址
             myTarget.setAddress(localAdd);
             //设置snmp共同体
-            myTarget.setCommunity(new OctetString("public"));
+            myTarget.setCommunity(new OctetString("ChinEntropy"));
             //设置超时重试次数
             myTarget.setRetries(2);
             //设置超时的时间
@@ -49,8 +45,26 @@ public class SnmpTest {
             //创建请求pdu,获取mib
             PDU request = new PDU();
             //调用的add方法绑定要查询的OID
-            request.add(new VariableBinding(new OID("1.3.6.1.2.1.1.1")));
-            request.add(new VariableBinding(new OID(new int[]{1, 3, 6, 1, 2, 1, 1, 2})));
+            //mac
+            //request.add(new VariableBinding(new OID("1.3.6.1.2.1.15.4")));
+            //cpu阈值
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.6.10.1.3.4")));
+            //cpu使用率
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.6.3.4.1.3")));
+            //request.add(new VariableBinding(new OID("1.3.6.1.2.1.47.1.1.1.1.1")));
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.5.25.31.1.1.1.1.5.67108869")));
+            //风扇运行状态
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.5.25.31.1.1.10.1.7")));
+
+            //内存使用率
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.5.25.311.5.2.1.34")));
+            //AS的内存利用率
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.5.25.327.2.1.1.15")));
+            //request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.5.25.31.1.1.10.1.7")));
+            //TODO 温度获取的值都是0
+            request.add(new VariableBinding(new OID("1.3.6.1.2.1.47.1.1.1.1.1")));
+            request.add(new VariableBinding(new OID("1.3.6.1.2.1.47.1.1.1.1.7")));
+            request.add(new VariableBinding(new OID("1.3.6.1.4.1.2011.5.25.31.1.1.1.1.11.67108869")));
             //调用setType()方法来确定该pdu的类型
             request.setType(PDU.GETNEXT);
             //调用 send(PDU pdu,Target target)发送pdu，返回一个ResponseEvent对象
@@ -61,11 +75,12 @@ public class SnmpTest {
             if (response != null) {
                 System.out.println("request.size()=" + request.size());
                 System.out.println("response.size()=" + response.size());
-                //通过应答pdu获得mib信息（之前绑定的OID的值），方法：VaribleBinding get(int index)
-                VariableBinding vb1 = response.get(0);
-                VariableBinding vb2 = response.get(1);
-                System.out.println(vb1);
-                System.out.println(vb2);
+                for (int i = 0; i < response.size(); i++) {
+                    //通过应答pdu获得mib信息（之前绑定的OID的值），方法：VaribleBinding get(int index)
+                    VariableBinding vb = response.get(i);
+                    System.out.println(vb);
+                }
+
                 //调用close()方法释放该进程
                 transport.close();
 
