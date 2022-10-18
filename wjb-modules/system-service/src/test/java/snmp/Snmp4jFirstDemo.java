@@ -1,3 +1,5 @@
+package snmp;
+
 import org.snmp4j.*;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.event.ResponseListener;

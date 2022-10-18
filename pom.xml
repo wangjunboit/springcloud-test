@@ -20,6 +20,7 @@
         <module>wjb-common</module>
         <module>wjb-modules</module>
         <module>wjb-api</module>
+        <module>wjb-modules/thread-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
