@@ -40,7 +40,6 @@ public class VolatileExample extends Thread {
             new Thread(new VolatileExample(), "线程" + i).start();
         }
         Thread.sleep(3000);
-
         System.out.println(w.get());
     }
 }
