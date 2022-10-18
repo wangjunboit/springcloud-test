@@ -1,5 +1,7 @@
 package reentrantlock;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 〈一句话功能简述〉<br>
  * 〈〉
@@ -10,7 +12,11 @@ package reentrantlock;
  */
 public class VolatileExample extends Thread {
     public volatile static Boolean stop = false;
-    public volatile static int w = 0;
+    /**
+     * volatile 保证可见性（主内存-本地内存） 有序性（禁止cpu指令重排）
+     * AtomicInteger 使用cas保证原子性
+     */
+    public volatile static AtomicInteger w = new AtomicInteger(0);
 
     @Override
     public void run() {
@@ -19,7 +25,7 @@ public class VolatileExample extends Thread {
 //            i++;//。。。。
 //        }
         for (int i = 0; i < 10000; i++) {
-            w = w + 1;
+            w.getAndAdd(1);
         }
     }
 
@@ -34,6 +40,7 @@ public class VolatileExample extends Thread {
             new Thread(new VolatileExample(), "线程" + i).start();
         }
         Thread.sleep(3000);
-        int h = w;
+
+        System.out.println(w.get());
     }
 }
