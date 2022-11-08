@@ -17,6 +17,7 @@
         <module>design-service</module>
         <module>docker-java-service</module>
         <module>thread-service</module>
+        <module>neo4j-service</module>
     </modules>
 
     <properties>
